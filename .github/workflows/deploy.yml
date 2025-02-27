@@ -20,15 +20,11 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-south-1
 
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v2
-        with:
-          terraform_version: 1.6.0
+      - name: Upload to S3
+        run: aws s3 sync src/ s3://simonphilip.cloud --delete
 
-      - name: Terraform Init
-        working-directory: infra
-        run: terraform init
-
-      - name: Terraform Apply
-        working-directory: infra
-        run: terraform apply -auto-approve
+      - name: Invalidate CloudFront Cache
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ secrets.CF_DISTRIBUTION_ID }} \
+            --paths "/*"
