@@ -1,7 +1,3 @@
-provider "aws" {
-  region = "ap-south-1"
-}
-
 resource "aws_s3_bucket" "website" {
   bucket = "simonphilip.cloud"
   acl    = "public-read"
