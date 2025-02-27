@@ -1,0 +1,17 @@
+body {
+    background: black;
+    color: #00FF41;
+    font-family: monospace;
+    text-align: center;
+    padding-top: 20vh;
+  }
+  
+  .terminal {
+    animation: flicker 1s infinite alternate;
+  }
+  
+  @keyframes flicker {
+    0% { opacity: 0.8; }
+    100% { opacity: 1; }
+  }
+  
