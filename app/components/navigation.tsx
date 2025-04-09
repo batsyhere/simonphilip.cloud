@@ -124,7 +124,7 @@ export default function Navigation() {
 
               <div className="border-t border-zinc-200 p-4">
                 <a
-                  href="/resume.pdf"
+                  href="/SimonPhilipResume.pdf"
                   download
                   className="flex w-full items-center justify-center gap-2 rounded-full border border-zinc-200 bg-white px-4 py-3 text-sm font-medium text-zinc-900 shadow-sm"
                 >
