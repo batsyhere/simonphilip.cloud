@@ -1,39 +1,41 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Download, Menu, X } from "lucide-react"
-import { motion, AnimatePresence } from "framer-motion"
+import { useState, useEffect } from "react";
+import { Download, Menu, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Navigation() {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
-    }
+      setIsScrolled(window.scrollY > 50);
+    };
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const scrollToSection = (sectionId: string) => {
-    setIsMobileMenuOpen(false)
-    const section = document.getElementById(sectionId)
+    setIsMobileMenuOpen(false);
+    const section = document.getElementById(sectionId);
     if (section) {
-      const offsetTop = section.offsetTop
+      const offsetTop = section.offsetTop;
       window.scrollTo({
         top: offsetTop,
         behavior: "smooth",
-      })
+      });
     }
-  }
+  };
 
   return (
     <>
       <header
         className={`fixed top-0 z-50 w-full transition-all duration-300 ${
-          isScrolled ? "bg-white/90 backdrop-blur-md shadow-sm" : "bg-transparent"
+          isScrolled
+            ? "bg-white/90 backdrop-blur-md shadow-sm"
+            : "bg-transparent"
         }`}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -46,7 +48,13 @@ export default function Navigation() {
 
             <nav className="hidden md:block">
               <ul className="flex space-x-8">
-                {["about", "skills", "experience", "certifications", "contact"].map((item) => (
+                {[
+                  "about",
+                  "skills",
+                  "experience",
+                  "certifications",
+                  "contact",
+                ].map((item) => (
                   <li key={item}>
                     <button
                       onClick={() => scrollToSection(item)}
@@ -60,17 +68,25 @@ export default function Navigation() {
             </nav>
 
             <div className="hidden md:block">
-              <button className="group inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-4 py-2 text-sm font-medium text-zinc-900 shadow-sm transition-all duration-300 hover:border-zinc-300 hover:shadow-md">
+              <a
+                href="/SimonPhilipResume.pdf"
+                download
+                className="group inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-4 py-2 text-sm font-medium text-zinc-900 shadow-sm transition-all duration-300 hover:border-zinc-300 hover:shadow-md"
+              >
                 <Download className="h-4 w-4 text-zinc-500 transition-all duration-300 group-hover:text-zinc-900" />
                 <span>Resume</span>
-              </button>
+              </a>
             </div>
 
             <button
               className="inline-flex items-center justify-center rounded-md p-2 text-zinc-600 md:hidden"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
-              {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isMobileMenuOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
             </button>
           </div>
         </div>
@@ -87,9 +103,18 @@ export default function Navigation() {
             <div className="flex h-full flex-col overflow-y-auto pt-20">
               <nav className="flex-1 px-4 pt-8">
                 <ul className="flex flex-col space-y-8">
-                  {["about", "skills", "experience", "certifications", "contact"].map((item) => (
+                  {[
+                    "about",
+                    "skills",
+                    "experience",
+                    "certifications",
+                    "contact",
+                  ].map((item) => (
                     <li key={item}>
-                      <button onClick={() => scrollToSection(item)} className="text-lg font-medium text-zinc-900">
+                      <button
+                        onClick={() => scrollToSection(item)}
+                        className="text-lg font-medium text-zinc-900"
+                      >
                         {item.charAt(0).toUpperCase() + item.slice(1)}
                       </button>
                     </li>
@@ -98,15 +123,19 @@ export default function Navigation() {
               </nav>
 
               <div className="border-t border-zinc-200 p-4">
-                <button className="flex w-full items-center justify-center gap-2 rounded-full border border-zinc-200 bg-white px-4 py-3 text-sm font-medium text-zinc-900 shadow-sm">
+                <a
+                  href="/resume.pdf"
+                  download
+                  className="flex w-full items-center justify-center gap-2 rounded-full border border-zinc-200 bg-white px-4 py-3 text-sm font-medium text-zinc-900 shadow-sm"
+                >
                   <Download className="h-4 w-4 text-zinc-500" />
                   <span>Download Resume</span>
-                </button>
+                </a>
               </div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
     </>
-  )
+  );
 }

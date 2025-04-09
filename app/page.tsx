@@ -29,10 +29,14 @@ export default function Home() {
               Cloud and Operations Engineer
             </p>
             <div className="mt-12 animate-fade-in-delay-2">
-              <button className="group inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-6 py-3 text-sm font-medium text-zinc-900 shadow-sm transition-all duration-300 hover:border-zinc-300 hover:shadow-md">
+              <a
+                href="/SimonPhilipResume.pdf"
+                download
+                className="group inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-6 py-3 text-sm font-medium text-zinc-900 shadow-sm transition-all duration-300 hover:border-zinc-300 hover:shadow-md"
+              >
                 <Download className="h-4 w-4 text-zinc-500 transition-all duration-300 group-hover:text-zinc-900" />
                 <span>Download Resume</span>
-              </button>
+              </a>
             </div>
           </div>
 
@@ -351,7 +355,9 @@ export default function Home() {
 
                 <div className="mt-8 flex space-x-4">
                   <a
-                    href="#"
+                    href="https://linkedin.com/in/simon-philip"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="rounded-full bg-zinc-100 p-2 text-zinc-600 transition-colors hover:bg-zinc-200 hover:text-zinc-900"
                   >
                     <svg
@@ -365,7 +371,9 @@ export default function Home() {
                     </svg>
                   </a>
                   <a
-                    href="#"
+                    href="https://linkedin.com/in/"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="rounded-full bg-zinc-100 p-2 text-zinc-600 transition-colors hover:bg-zinc-200 hover:text-zinc-900"
                   >
                     <svg
@@ -379,21 +387,9 @@ export default function Home() {
                     </svg>
                   </a>
                   <a
-                    href="#"
-                    className="rounded-full bg-zinc-100 p-2 text-zinc-600 transition-colors hover:bg-zinc-200 hover:text-zinc-900"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="20"
-                      height="20"
-                      fill="currentColor"
-                      viewBox="0 0 16 16"
-                    >
-                      <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z" />
-                    </svg>
-                  </a>
-                  <a
-                    href="#"
+                    href="https://www.instagram.com/simonsideup/"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="rounded-full bg-zinc-100 p-2 text-zinc-600 transition-colors hover:bg-zinc-200 hover:text-zinc-900"
                   >
                     <svg
