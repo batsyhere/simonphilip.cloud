@@ -132,7 +132,7 @@ export default function SkillCard({ title, description, icon, skills }: SkillCar
 
   return (
     <div className="group rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md">
-      <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-zinc-100 text-zinc-700 transition-colors duration-300 group-hover:bg-zinc-900 group-hover:text-white">
+      <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-zinc-100 text-zinc-700 transition-colors duration-300 group-hover:bg-highlight group-hover:text-zinc-900">
         {getIcon()}
       </div>
 
@@ -141,7 +141,7 @@ export default function SkillCard({ title, description, icon, skills }: SkillCar
 
       <div className="flex flex-wrap gap-2">
         {skills.map((skill, index) => (
-          <span key={index} className="rounded-full bg-zinc-100 px-3 py-1 text-xs text-zinc-700">
+          <span key={index} className="rounded-full bg-zinc-100 px-3 py-1 text-xs text-zinc-700 hover:bg-highlight hover:text-zinc-900">
             {skill}
           </span>
         ))}

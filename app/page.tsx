@@ -1,16 +1,16 @@
+"use client";
 import Image from "next/image";
-import { Download, ArrowDown } from "lucide-react";
-import Navigation from "./components/navigation";
+import { Download } from "lucide-react";
 import SectionHeading from "./components/section-heading";
 import SkillCard from "./components/skill-card";
 import ExperienceCard from "./components/experience-card";
 import ProjectCard from "./components/project-card";
 import ParallaxSection from "./components/parallax-section";
+import ScrambleText from "./components/scarmble-text";
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-white text-zinc-900">
-      <Navigation />
       {/* Hero Section */}
       <section
         id="hero"
@@ -23,12 +23,23 @@ export default function Home() {
         <div className="container relative z-10 mx-auto px-4 py-24 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-4xl text-center">
             <h1 className="animate-fade-in text-5xl font-light tracking-tight text-zinc-900 sm:text-6xl md:text-7xl">
-              <span className="block">Simon Philip</span>
+              <span className="block">
+                <ScrambleText text="Simon Philip" />
+              </span>
             </h1>
-            <p className="mt-4 animate-fade-in-delay-1 text-xl font-light tracking-wide text-zinc-500 sm:text-2xl">
-              Cloud and Operations Engineer
+            <p className="mt-4 animate-fade-in-delay-1 text-xl font-light tracking-wide text-zinc-500 sm:text-2xl bg-highlight">
+              <ScrambleText text="Cloud and Operations Engineer" />
             </p>
-            <div className="mt-12 animate-fade-in-delay-2">
+            <div className="mt-12 animate-fade-in-delay-2 flex justify-center gap-4">
+              {/* Take the Tour button */}
+              <a
+                href="#about"
+                className="group inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-6 py-3 text-sm font-medium text-zinc-900 shadow-sm transition-all duration-300 hover:border-zinc-300 hover:shadow-md"
+              >
+                <span>Take the Tour</span>
+              </a>
+
+              {/* Download Resume button */}
               <a
                 href="/SimonPhilipResume.pdf"
                 download
@@ -38,10 +49,6 @@ export default function Home() {
                 <span>Download Resume</span>
               </a>
             </div>
-          </div>
-
-          <div className="absolute bottom-12 left-1/2 -translate-x-1/2 animate-bounce">
-            <ArrowDown className="h-6 w-6 text-zinc-400" />
           </div>
         </div>
       </section>
@@ -57,7 +64,7 @@ export default function Home() {
           <div className="mx-auto mt-16 grid max-w-5xl gap-12 md:grid-cols-2">
             <div className="relative aspect-square overflow-hidden rounded-2xl">
               <Image
-                src="/placeholder.svg?height=600&width=600"
+                src="/simon1.jpg?height=600&width=600"
                 alt="Simon Philip"
                 fill
                 className="object-cover"
@@ -234,7 +241,7 @@ export default function Home() {
             <ProjectCard
               title="AWS Certified Developer – Associate"
               category="Certification"
-              image="/placeholder.svg?height=400&width=600"
+              image="/aws.png?height=400&width=600"
               description="Validated proficiency in developing and maintaining AWS-based applications, including core services and best practices."
               link="https://www.credly.com/badges/your-aws-dev-cert-link"
             />
@@ -242,7 +249,7 @@ export default function Home() {
             <ProjectCard
               title="Full Stack Development – upGrad"
               category="Certification"
-              image="/placeholder.svg?height=400&width=600"
+              image="/fullstack.png?height=400&width=600"
               description="Completed hands-on training in front-end and back-end technologies including React, Node.js, and MongoDB."
               link="https://learn.upgrad.com/fullstack-cert"
             />

@@ -23,6 +23,7 @@ const config = {
         sans: ["var(--font-inter)"],
       },
       colors: {
+        highlight: "#f1f864",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
