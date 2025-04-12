@@ -22,7 +22,7 @@ export default function ExperienceCard({ title, company, period, description, ac
           <h3 className="text-xl font-medium text-zinc-900">{title}</h3>
           <p className="text-zinc-600">{company}</p>
         </div>
-        <div className="rounded-full bg-zinc-100 px-4 py-1 text-sm text-zinc-700">{period}</div>
+        <div className="rounded-full px-4 py-1 text-sm text-zinc-900 bg-highlight">{period}</div>
       </div>
 
       <p className="mt-4 text-zinc-600">{description}</p>

@@ -93,16 +93,16 @@ export default function Home() {
               </p>
 
               <div className="mt-8 flex flex-wrap gap-3">
-                <span className="rounded-full bg-zinc-100 px-4 py-2 text-sm text-zinc-700">
+                <span className="rounded-full bg-zinc-100 px-4 py-2 text-sm text-zinc-700 hover:bg-highlight">
                   Design Thinking
                 </span>
-                <span className="rounded-full bg-zinc-100 px-4 py-2 text-sm text-zinc-700">
+                <span className="rounded-full bg-zinc-100 px-4 py-2 text-sm text-zinc-700 hover:bg-highlight">
                   User Experience
                 </span>
-                <span className="rounded-full bg-zinc-100 px-4 py-2 text-sm text-zinc-700">
+                <span className="rounded-full bg-zinc-100 px-4 py-2 text-sm text-zinc-700 hover:bg-highlight">
                   Brand Strategy
                 </span>
-                <span className="rounded-full bg-zinc-100 px-4 py-2 text-sm text-zinc-700">
+                <span className="rounded-full bg-zinc-100 px-4 py-2 text-sm text-zinc-700 hover:bg-highlight">
                   Visual Design
                 </span>
               </div>
@@ -298,7 +298,9 @@ export default function Home() {
                     </div>
                     <div className="ml-4">
                       <p className="text-sm font-medium text-zinc-900">Email</p>
-                      <p className="text-zinc-600">simonphilip137@gmail.com</p>
+                      <p><a href="mailto:simonphilip137@gmail.com" className="text-zinc-600 hover:underline">
+    simonphilip137@gmail.com
+  </a></p>
                     </div>
                   </div>
 
