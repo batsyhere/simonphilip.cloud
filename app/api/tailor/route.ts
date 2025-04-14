@@ -1,14 +1,40 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
+import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-secrets-manager";
+import { fromEnv } from "@aws-sdk/credential-provider-env";
 
-const openai = new OpenAI({
-  apiKey: "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",
-});
+
+async function getOpenAIKey(): Promise<string> {
+  try {
+    // Initialize client with proper types
+    const secretsClient = new SecretsManagerClient({
+      region: "ap-south-1", // Fallback region
+      credentials: fromEnv() // Automatically reads AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY
+    });
+
+    const response = await secretsClient.send(
+      new GetSecretValueCommand({
+        SecretId: process.env.AWS_SECRET_NAME
+      })
+    );
+
+    if (!response.SecretString) {
+      throw new Error("No secret value found");
+    }
+
+    return JSON.parse(response.SecretString).REDACTED;
+  } catch (error) {
+    console.error("Secret retrieval failed:", error);
+    throw new Error("Failed to retrieve OpenAI API key");
+  }
+}
+
 
 export async function POST(req: NextRequest) {
+  const openaiApiKey = await getOpenAIKey();
+  const openai = new OpenAI({ apiKey: openaiApiKey });
   try {
     const { jobDescription, profileData } = await req.json();
-
     if (!jobDescription || !profileData) {
       return NextResponse.json(
         { error: "Missing jobDescription or profileData" },
@@ -17,47 +43,47 @@ export async function POST(req: NextRequest) {
     }
 
     const systemPrompt = `
-You are a professional resume writer.
+            You are a professional resume writer.
 
-Your job is to tailor the user's resume to match the given job description in a way that maximizes relevance for the role while **preserving all original experiences** exactly as provided.
+            Your job is to tailor the user's resume to match the given job description in a way that maximizes relevance for the role while **preserving all original experiences** exactly as provided.
 
-- Do not omit, remove, or summarize any experiences.
-- Retain all work experience entries.
-- Format the output cleanly for a one-page resume.
-- Optimize only the language (rewording) and structure, but do not lose any data.
-- Add job-specific keywords where necessary to increase ATS compatibility.
-- Return a JSON object like this:
+            - Do not omit, remove, or summarize any experiences.
+            - Retain all work experience entries.
+            - Format the output cleanly for a one-page resume.
+            - Optimize only the language (rewording) and structure, but do not lose any data.
+            - Add job-specific keywords where necessary to increase ATS compatibility.
+            - Return a JSON object like this:
 
-{
-  "resume": {
-    "name": "Candidate Name",
-    "title": "Professional Title",
-    "phone": "Phone Number",
-    "email": "Email Address",
-    "summary": "Updated summary tailored to the job",
-    "skills": ["Skill 1", "Skill 2"],
-    "experience": [
-      {
-        "role": "...",
-        "company": "...",
-        "duration": "...",
-        "responsibilities": ["..."]
-      }
-    ],
-    "projects": [
-      { "name": "...", "description": "..." }
-    ],
-    "certifications": ["..."],
-    "education": [
-      { "degree": "...", "institution": "...", "year": "..." }
-    ]
-  },
-  "coverLetter": "Tailored cover letter based on the job description",
-  "summaryStatement": "One-line value proposition summary for the resume"
-}
+            {
+              "resume": {
+                "name": "Candidate Name",
+                "title": "Professional Title",
+                "phone": "Phone Number",
+                "email": "Email Address",
+                "summary": "Updated summary tailored to the job",
+                "skills": ["Skill 1", "Skill 2"],
+                "experience": [
+                  {
+                    "role": "...",
+                    "company": "...",
+                    "duration": "...",
+                    "responsibilities": ["..."]
+                  }
+                ],
+                "projects": [
+                  { "name": "...", "description": "..." }
+                ],
+                "certifications": ["..."],
+                "education": [
+                  { "degree": "...", "institution": "...", "year": "..." }
+                ]
+              },
+              "coverLetter": "Tailored cover letter based on the job description",
+              "summaryStatement": "One-line value proposition summary for the resume"
+            }
 
-Do not invent fake data. Keep everything truthful and within one page.
-`;
+            Do not invent fake data. Keep everything truthful and within one page.
+            `;
 
     const messages: OpenAI.Chat.ChatCompletionMessageParam[] = [
       {
