@@ -89,18 +89,6 @@ export default function ResumeGeneratorPage() {
             ],
             experience: [
               {
-                role: "Customer Support Engineer",
-                company: "Safe Security",
-                duration: "2021 - 2022",
-                responsibilities: [
-                  "Delivered full-stack feature enhancements and customer support for SAFE, a serverless React application hosted on AWS.",
-                  "Integrated new features and design changes in the React-based flagship product.",
-                  "Resolved customer issues efficiently, ensuring smooth user experience.",
-                  "Maintained daily follow-ups for bug tracking and resolution.",
-                  "Owned feature delivery for a serverless web application on AWS infrastructure.",
-                ],
-              },
-              {
                 role: "Cloud Operations Engineer",
                 company: "Safe Security",
                 duration: "2022 - 2024",
@@ -116,6 +104,18 @@ export default function ResumeGeneratorPage() {
                   "Collaborated with product teams and managed code cherry-picks for releases",
                 ],
               },
+              {
+                role: "Customer Support Engineer",
+                company: "Safe Security",
+                duration: "2021 - 2022",
+                responsibilities: [
+                  "Delivered full-stack feature enhancements and customer support for SAFE, a serverless React application hosted on AWS.",
+                  "Integrated new features and design changes in the React-based flagship product.",
+                  "Resolved customer issues efficiently, ensuring smooth user experience.",
+                  "Maintained daily follow-ups for bug tracking and resolution.",
+                  "Owned feature delivery for a serverless web application on AWS infrastructure.",
+                ],
+              }
             ],
             projects: [
               {
