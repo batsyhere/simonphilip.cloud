@@ -1,113 +1,134 @@
-import React from "react";
+import type React from "react"
 
 interface ResumeData {
-  name: string;
-  title: string;
-  phone: string;
-  email: string;
-  summary: string;
-  certifications: string[];
-  skills: string[];
+  name: string
+  title: string
+  contact: {
+    email: string
+    phone: string
+  }
+  summary: string
+  skills: string[]
   experience: {
-    role: string;
-    company: string;
-    duration: string;
-    responsibilities: string[];
-  }[];
-  projects: {
-    name: string;
-    description: string;
-  }[];
+    role: string
+    company: string
+    duration: string
+    highlights: string[]
+  }[]
   education: {
-    degree: string;
-    institution: string;
-    year: string;
-  }[];
+    degree: string
+    institution: string
+    year: string
+  }[]
+  certifications: string[]
+  projects?: {
+    name: string
+    description: string
+  }[]
 }
 
-export const ResumePreview = ({
-  resumeData,
-  multiColumnSkills = false,
-}: {
-  resumeData: ResumeData;
-  multiColumnSkills?: boolean;
-}) => {
+interface ResumePreviewProps {
+  resumeData: ResumeData
+}
+
+const ResumePreview: React.FC<ResumePreviewProps> = ({ resumeData }) => {
+  // Safety check to prevent errors if data is missing
+  if (!resumeData || !resumeData.contact) {
+    return <div className="p-4 text-red-500">Resume data is incomplete or invalid.</div>
+  }
+
   return (
-    <div className="bg-white shadow-lg rounded-xl p-8 border border-zinc-200 print:p-4 print:shadow-none">
-      <header className="text-center mb-6">
+    <div className="font-sans text-zinc-900">
+      {/* Header */}
+      <div className="mb-4">
         <h1 className="text-2xl font-bold">{resumeData.name}</h1>
-        <p className="text-sm text-zinc-600">{resumeData.title}</p>
-        <p className="text-sm">{resumeData.phone} • {resumeData.email}</p>
-      </header>
+        <h2 className="text-lg text-zinc-600">{resumeData.title}</h2>
+        <div className="mt-1 text-sm text-zinc-500">
+          <p>
+            {resumeData.contact.email} | {resumeData.contact.phone}
+          </p>
+        </div>
+      </div>
 
-      <section className="mb-4">
-        <h2 className="text-lg font-semibold border-b border-zinc-300 pb-1 mb-2">Summary</h2>
-        <p className="text-sm text-zinc-800">{resumeData.summary}</p>
-      </section>
+      {/* Summary */}
+      <div className="mb-4">
+        <h3 className="text-md font-bold border-b border-zinc-300 pb-1 mb-2">SUMMARY</h3>
+        <p className="text-sm">{resumeData.summary}</p>
+      </div>
 
-      <section className="mb-4">
-        <h2 className="text-lg font-semibold border-b border-zinc-300 pb-1 mb-2">Certifications</h2>
-        <ul
-          className={`text-sm text-zinc-800 ${
-            multiColumnSkills ? "grid grid-cols-1 sm:grid-cols-2 gap-1" : "list-disc list-inside"
-          }`}
-        >
-          {resumeData.certifications.map((cert, idx) => (
-            <li key={idx}>{cert}</li>
+      {/* Skills */}
+      <div className="mb-4">
+        <h3 className="text-md font-bold border-b border-zinc-300 pb-1 mb-2">SKILLS</h3>
+        <div className="flex flex-wrap gap-1">
+          {resumeData.skills.map((skill, index) => (
+            <span key={index} className="text-sm bg-zinc-100 px-2 py-1 rounded">
+              {skill}
+            </span>
           ))}
-        </ul>
-      </section>
+        </div>
+      </div>
 
-      <section className="mb-4">
-        <h2 className="text-lg font-semibold border-b border-zinc-300 pb-1 mb-2">Skills</h2>
-        <ul
-          className={`text-sm text-zinc-800 ${
-            multiColumnSkills ? "grid grid-cols-2 sm:grid-cols-3 gap-1" : "list-disc list-inside"
-          }`}
-        >
-          {resumeData.skills.map((skill, idx) => (
-            <li key={idx}>{skill}</li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="mb-4">
-        <h2 className="text-lg font-semibold border-b border-zinc-300 pb-1 mb-2">Experience</h2>
-        {resumeData.experience.map((exp, idx) => (
-          <div key={idx} className="mb-4">
-            <p className="font-medium text-sm">
-              {exp.role} @ {exp.company} ({exp.duration})
-            </p>
-            <ul className="list-disc list-inside text-sm text-zinc-800">
-              {exp.responsibilities.map((task, i) => (
-                <li key={i}>{task}</li>
+      {/* Experience */}
+      <div className="mb-4">
+        <h3 className="text-md font-bold border-b border-zinc-300 pb-1 mb-2">EXPERIENCE</h3>
+        {resumeData.experience.map((exp, index) => (
+          <div key={index} className="mb-3">
+            <div className="flex justify-between items-start">
+              <div>
+                <h4 className="text-sm font-bold">{exp.role}</h4>
+                <h5 className="text-sm">{exp.company}</h5>
+              </div>
+              <span className="text-xs text-zinc-500">{exp.duration}</span>
+            </div>
+            <ul className="mt-1 pl-5 text-sm list-disc">
+              {exp.highlights.map((highlight, idx) => (
+                <li key={idx} className="mb-1">
+                  {highlight}
+                </li>
               ))}
             </ul>
           </div>
         ))}
-      </section>
+      </div>
 
-      <section className="mb-4">
-        <h2 className="text-lg font-semibold border-b border-zinc-300 pb-1 mb-2">Projects</h2>
-        <div className={multiColumnSkills ? "grid grid-cols-1 sm:grid-cols-2 gap-2" : ""}>
-          {resumeData.projects.map((project, idx) => (
-            <div key={idx} className="text-sm">
-              <p className="font-medium">{project.name}</p>
-              <p className="text-zinc-700">{project.description}</p>
+      {/* Projects (if available) */}
+      {resumeData.projects && resumeData.projects.length > 0 && (
+        <div className="mb-4">
+          <h3 className="text-md font-bold border-b border-zinc-300 pb-1 mb-2">PROJECTS</h3>
+          {resumeData.projects.map((project, index) => (
+            <div key={index} className="mb-2">
+              <h4 className="text-sm font-bold">{project.name}</h4>
+              <p className="text-sm">{project.description}</p>
             </div>
           ))}
         </div>
-      </section>
+      )}
 
-      <section>
-        <h2 className="text-lg font-semibold border-b border-zinc-300 pb-1 mb-2">Education</h2>
-        {resumeData.education.map((edu, idx) => (
-          <div key={idx} className="text-sm text-zinc-800">
-            <p className="font-medium">{edu.degree}</p>
-            <p>{edu.institution} ({edu.year})</p>
+      {/* Education */}
+      <div className="mb-4">
+        <h3 className="text-md font-bold border-b border-zinc-300 pb-1 mb-2">EDUCATION</h3>
+        {resumeData.education.map((edu, index) => (
+          <div key={index} className="mb-2">
+            <div className="flex justify-between">
+              <h4 className="text-sm font-bold">{edu.degree}</h4>
+              <span className="text-xs text-zinc-500">{edu.year}</span>
+            </div>
+            <p className="text-sm">{edu.institution}</p>
           </div>
         ))}
-      </section>
+      </div>
+
+      {/* Certifications */}
+      <div>
+        <h3 className="text-md font-bold border-b border-zinc-300 pb-1 mb-2">CERTIFICATIONS</h3>
+        <ul className="pl-5 text-sm list-disc">
+          {resumeData.certifications.map((cert, index) => (
+            <li key={index}>{cert}</li>
+          ))}
+        </ul>
+      </div>
     </div>
-  );
-};
+  )
+}
+
+export default ResumePreview
