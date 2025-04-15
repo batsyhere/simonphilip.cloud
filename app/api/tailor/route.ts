@@ -1,38 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
-import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-secrets-manager";
-import { fromEnv } from "@aws-sdk/credential-provider-env";
 
-
-async function getOpenAIKey(): Promise<string> {
-  try {
-    // Initialize client with proper types
-    const secretsClient = new SecretsManagerClient({
-      region: "ap-south-1", // Fallback region
-      credentials: fromEnv() // Automatically reads AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY
-    });
-
-    const response = await secretsClient.send(
-      new GetSecretValueCommand({
-        SecretId: process.env.AWS_SECRET_NAME
-      })
-    );
-
-    if (!response.SecretString) {
-      throw new Error("No secret value found");
-    }
-
-    return JSON.parse(response.SecretString).OPENAI_API_KEY;
-  } catch (error) {
-    console.error("Secret retrieval failed:", error);
-    throw new Error("Failed to retrieve OpenAI API key");
-  }
-}
+import { secret } from '@aws-amplify/backend';
 
 
 export async function POST(req: NextRequest) {
-  console.log("hello", process.env.OPENAI_API_KEY)
+  console.log("hello", secret('OPENAI_API_KEY'))
   const openaiApiKey = process.env.OPENAI_API_KEY;
+
   const openai = new OpenAI({ apiKey: openaiApiKey });
   try {
     const { jobDescription, profileData } = await req.json();
