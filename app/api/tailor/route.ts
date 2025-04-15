@@ -31,6 +31,7 @@ async function getOpenAIKey(): Promise<string> {
 
 
 export async function POST(req: NextRequest) {
+  console.log("hello", process.env.OPENAI_API_KEY)
   const openaiApiKey = process.env.OPENAI_API_KEY;
   const openai = new OpenAI({ apiKey: openaiApiKey });
   try {
