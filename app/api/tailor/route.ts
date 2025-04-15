@@ -22,7 +22,7 @@ async function getOpenAIKey(): Promise<string> {
       throw new Error("No secret value found");
     }
 
-    return JSON.parse(response.SecretString).REDACTED;
+    return JSON.parse(response.SecretString).OPEN_API_KEY;
   } catch (error) {
     console.error("Secret retrieval failed:", error);
     throw new Error("Failed to retrieve OpenAI API key");

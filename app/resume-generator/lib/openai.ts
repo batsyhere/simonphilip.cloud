@@ -2,7 +2,7 @@ import { OpenAI } from "openai";
 
 // Set up OpenAI client
 const openai = new OpenAI({
-  apiKey: process.env.REDACTED,
+  apiKey: process.env.OPEN_API_KEY,
 });
 
 export const generateTailoredContent = async (
