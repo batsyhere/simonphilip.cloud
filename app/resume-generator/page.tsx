@@ -139,7 +139,21 @@ export default function ResumeGeneratorPage() {
           },
         }),
       })
-      console.log("respo12", JSON.stringify(response))
+      const contentType = response.headers.get("content-type")
+      console.log("🧪 Content-Type:", contentType)
+
+      const text = await response.text()
+      console.log("🐛 Raw response body:", text)
+
+      let dat
+      try {
+        dat = JSON.parse(text)
+      } catch (e) {
+        console.error("❌ Failed to parse JSON:", e)
+        setError("Invalid response from the API.")
+        setLoading(false)
+        return
+      }
       if (!response.ok) {
         console.log(JSON.stringify(response))
         throw new Error(`API error: ${response.status}`)
@@ -148,9 +162,13 @@ export default function ResumeGeneratorPage() {
       const data = await response.json()
       setApiResponse(data)
 
-      // Transform the API response to match our component structure
-      const transformedResume = transformResumeData(data)
-      setGeneratedResume(transformedResume)
+      try {
+        const transformedResume = transformResumeData(data)
+        setGeneratedResume(transformedResume)
+      } catch (e) {
+        console.error("🔥 Transform error:", e, "Data:", data)
+        setError("Something went wrong processing the resume.")
+      }
 
       // Set cover letter
       setGeneratedCoverLetter(data.coverLetter || null)
