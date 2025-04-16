@@ -4,7 +4,7 @@ import OpenAI from "openai";
 export async function POST(req: NextRequest) {
   
   const openaiApiKey = process.env.OPENAI_API_KEY;
-
+  console.log("open178", process.env.OPENAI_API_KEY)
   const openai = new OpenAI({ apiKey: openaiApiKey });
   try {
     const { jobDescription, profileData } = await req.json();
