@@ -141,6 +141,7 @@ export default function ResumeGeneratorPage() {
       })
 
       if (!response.ok) {
+        console.log(JSON.stringify(response))
         throw new Error(`API error: ${response.status}`)
       }
 
@@ -154,7 +155,7 @@ export default function ResumeGeneratorPage() {
       // Set cover letter
       setGeneratedCoverLetter(data.coverLetter || null)
     } catch (error) {
-      console.error("Error generating a repsonse from the api:", error, console.log("hello", process.env.OPENAI_API_KEY))
+      console.error("Error generating a repsonse from the api:", error, console.log("hello"))
       setError("Failed to generate resume. Please try again later.")
     } finally {
       setLoading(false)

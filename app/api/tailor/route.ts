@@ -4,7 +4,7 @@ import OpenAI from "openai";
 export async function POST(req: NextRequest) {
   
   const openaiApiKey = process.env.OPENAI_API_KEY;
-  console.log("open178", process.env.OPENAI_API_KEY)
+  console.log("open178")
   const openai = new OpenAI({ apiKey: openaiApiKey });
   try {
     const { jobDescription, profileData } = await req.json();
@@ -78,7 +78,8 @@ export async function POST(req: NextRequest) {
       messages,
       temperature: 0.3,
     });
-
+    console.log("respo1234", response)
+    console.log("reponse", JSON.stringify(response, null, 2))
     const content = response.choices[0].message?.content;
     if (!content) {
       return NextResponse.json({ error: "No content generated." }, { status: 500 });
