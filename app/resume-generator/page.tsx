@@ -52,13 +52,13 @@ export default function ResumeGeneratorPage() {
       setError("Please paste a job description.")
       return
     }
-
+  
     setLoading(true)
     setGeneratedResume(null)
     setGeneratedCoverLetter(null)
     setApiResponse(null)
     setError(null)
-
+  
     try {
       const response = await fetch("/api/tailor", {
         method: "POST",
@@ -139,29 +139,14 @@ export default function ResumeGeneratorPage() {
           },
         }),
       })
-      const contentType = response.headers.get("content-type")
-      console.log("🧪 Content-Type:", contentType)
-
-      const text = await response.text()
-      console.log("🐛 Raw response body:", text)
-
-      let dat
-      try {
-        dat = JSON.parse(text)
-      } catch (e) {
-        console.error("❌ Failed to parse JSON:", e)
-        setError("Invalid response from the API.")
-        setLoading(false)
-        return
-      }
+  
       if (!response.ok) {
-        console.log(JSON.stringify(response))
         throw new Error(`API error: ${response.status}`)
       }
-
+  
       const data = await response.json()
       setApiResponse(data)
-
+  
       try {
         const transformedResume = transformResumeData(data)
         setGeneratedResume(transformedResume)
@@ -169,16 +154,16 @@ export default function ResumeGeneratorPage() {
         console.error("🔥 Transform error:", e, "Data:", data)
         setError("Something went wrong processing the resume.")
       }
-
-      // Set cover letter
+  
       setGeneratedCoverLetter(data.coverLetter || null)
     } catch (error) {
-      console.error("Error generating a repsonse from the api:", error, console.log("hello"))
+      console.error("Error generating a response from the API:", error)
       setError("Failed to generate resume. Please try again later.")
     } finally {
       setLoading(false)
     }
   }
+  
 
   const handleEdit = () => setIsEditing(true)
 
