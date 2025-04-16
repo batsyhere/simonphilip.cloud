@@ -139,7 +139,7 @@ export default function ResumeGeneratorPage() {
           },
         }),
       })
-
+      console.log("respo12", JSON.stringify(response))
       if (!response.ok) {
         console.log(JSON.stringify(response))
         throw new Error(`API error: ${response.status}`)
