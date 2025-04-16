@@ -1,11 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 
-import { secret } from '@aws-amplify/backend';
-
-
 export async function POST(req: NextRequest) {
-  console.log("hello", secret('OPENAI_API_KEY'))
+  
   const openaiApiKey = process.env.OPENAI_API_KEY;
 
   const openai = new OpenAI({ apiKey: openaiApiKey });
