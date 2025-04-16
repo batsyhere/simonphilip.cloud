@@ -61,7 +61,7 @@ export default function ResumeGeneratorPage() {
   
     try {
       const response = await fetch(
-        "https://8t5qa3c.execute-api.ap-south-1.amazonaws.com/prod/generateTailoredResume",
+        "https://e4rm4x2aoa.execute-api.ap-south-1.amazonaws.com/prod",
         {
           method: "POST",
           headers: {
