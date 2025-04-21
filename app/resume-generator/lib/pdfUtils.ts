@@ -35,7 +35,7 @@ export const handleDownloadPdf = (data: ResumeData, filename: string) => {
   if (data.content) {
     generateCoverLetterPdf(doc, data.content)
   } else {
-    // It's a resume
+    console.log("resumeData", data)
     generateResumePdf(doc, data)
   }
 

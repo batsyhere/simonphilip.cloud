@@ -23,6 +23,7 @@ interface ResumeData {
   certifications: string[]
   projects?: {
     name: string
+    url: string
     description: string
   }[]
 }
@@ -91,13 +92,15 @@ const ResumePreview: React.FC<ResumePreviewProps> = ({ resumeData }) => {
         ))}
       </div>
 
-      {/* Projects (if available) */}
+      {/* Projects */}
       {resumeData.projects && resumeData.projects.length > 0 && (
         <div className="mb-4">
           <h3 className="text-md font-bold border-b border-zinc-300 pb-1 mb-2">PROJECTS</h3>
           {resumeData.projects.map((project, index) => (
             <div key={index} className="mb-2">
+              <a href={project.url || "#"} className="text-blue-600 hover:underline">
               <h4 className="text-sm font-bold">{project.name}</h4>
+              </a>
               <p className="text-sm">{project.description}</p>
             </div>
           ))}

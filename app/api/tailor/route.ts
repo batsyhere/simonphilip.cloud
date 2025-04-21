@@ -80,8 +80,6 @@ export async function POST(req: NextRequest) {
       messages,
       temperature: 0.3,
     });
-    console.log("respo1234", response)
-    console.log("reponse", JSON.stringify(response, null, 2))
     const content = response.choices[0].message?.content;
     if (!content) {
       return NextResponse.json({ error: "No content generated." }, { status: 500 });
