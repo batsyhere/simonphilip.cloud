@@ -61,7 +61,7 @@ export default function ResumeGeneratorPage() {
   
     try {
       const response = await fetch(
-        "https://e4rm4x2aoa.execute-api.ap-south-1.amazonaws.com/prod/generateTailoredResume",
+        "https://buzzy.lambda-url.ap-south-1.on.aws/",
         {
           method: "POST",
           headers: {
@@ -70,30 +70,30 @@ export default function ResumeGeneratorPage() {
           body: JSON.stringify({ jobDescription }),
         }
       );
-  
+    
       if (!response.ok) {
-        throw new Error(`API error: ${response.status}`)
+        throw new Error(`API error: ${response.status}`);
       }
-  
-      const data = await response.json()
-      setApiResponse(data)
-  
+    
+      const data = await response.json();
+      setApiResponse(data);
+    
       try {
-        const transformedResume = transformResumeData(data)
-        setGeneratedResume(transformedResume)
+        const transformedResume = transformResumeData(data);
+        setGeneratedResume(transformedResume);
       } catch (e) {
-        console.error("🔥 Transform error:", e, "Data:", data)
-        setError("Something went wrong processing the resume.")
+        console.error("🔥 Transform error:", e, "Data:", data);
+        setError("Something went wrong processing the resume.");
       }
-  
-      setGeneratedCoverLetter(data.coverLetter || null)
+    
+      setGeneratedCoverLetter(data.coverLetter || null);
     } catch (error) {
-      console.error("Error generating a response from the API:", error)
-      setError("Failed to generate resume. Please try again later.")
+      console.error("Error generating a response from the API:", error);
+      setError("Failed to generate resume. Please try again later.");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+    
   
 
   const handleEdit = () => setIsEditing(true)
