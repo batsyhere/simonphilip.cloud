@@ -61,7 +61,7 @@ export default function ResumeGeneratorPage() {
   
     try {
       const response = await fetch(
-        "https://buzzy.lambda-url.ap-south-1.on.aws/",
+        "https://vuzzkjy7gnsfch4udccmxel5pi0aepbv.lambda-url.ap-south-1.on.aws/",
         {
           method: "POST",
           headers: {
