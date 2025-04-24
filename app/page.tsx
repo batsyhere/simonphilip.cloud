@@ -94,16 +94,16 @@ export default function Home() {
 
               <div className="mt-8 flex flex-wrap gap-3">
                 <span className="rounded-full bg-zinc-100 px-4 py-2 text-sm text-zinc-700 hover:bg-highlight">
-                  Design Thinking
+                  AWS
                 </span>
                 <span className="rounded-full bg-zinc-100 px-4 py-2 text-sm text-zinc-700 hover:bg-highlight">
-                  User Experience
+                  Cloud Architect
                 </span>
                 <span className="rounded-full bg-zinc-100 px-4 py-2 text-sm text-zinc-700 hover:bg-highlight">
-                  Brand Strategy
+                  Devops
                 </span>
                 <span className="rounded-full bg-zinc-100 px-4 py-2 text-sm text-zinc-700 hover:bg-highlight">
-                  Visual Design
+                  SRE
                 </span>
               </div>
             </div>
