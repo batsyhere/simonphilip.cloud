@@ -27,6 +27,7 @@ interface ResumeData {
   certifications: string[]
   projects?: {
     name: string
+    url: string
     description: string
   }[]
 }
@@ -447,7 +448,7 @@ const ResumeEditor: React.FC<ResumeEditorProps> = ({ resumeData, onSave, onCance
                 onClick={() => {
                   setEditedData({
                     ...editedData,
-                    projects: [...(editedData.projects || []), { name: "", description: "" }],
+                    projects: [...(editedData.projects || []), { name: "", url: "", description: "" }],
                   })
                 }}
                 className="text-xs flex items-center gap-1 text-violet-600 hover:text-violet-800"
@@ -469,6 +470,25 @@ const ResumeEditor: React.FC<ResumeEditorProps> = ({ resumeData, onSave, onCance
                           updatedProjects[projectIndex] = {
                             ...updatedProjects[projectIndex],
                             name: e.target.value,
+                          }
+                          setEditedData({
+                            ...editedData,
+                            projects: updatedProjects,
+                          })
+                        }}
+                        className="w-full p-2 border border-zinc-300 rounded-md"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Project Url</label>
+                      <input
+                        type="text"
+                        value={project.url}
+                        onChange={(e) => {
+                          const updatedProjects = [...editedData.projects!]
+                          updatedProjects[projectIndex] = {
+                            ...updatedProjects[projectIndex],
+                            url: e.target.value,
                           }
                           setEditedData({
                             ...editedData,

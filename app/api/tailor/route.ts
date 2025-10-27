@@ -36,12 +36,14 @@ export async function POST(req: NextRequest) {
   try {
     const { jobDescription, profileData } = await req.json();
     if (!jobDescription || !profileData) {
+    console.log("closed179",jobDescription, profileData)
+
       return NextResponse.json(
         { error: "Missing jobDescription or profileData" },
         { status: 400 }
       );
     }
-
+    console.log("open179",jobDescription, profileData)
     const systemPrompt = `
             You are a professional resume writer.
 
@@ -105,7 +107,6 @@ export async function POST(req: NextRequest) {
       messages,
       temperature: 0.3,
     });
-
     const content = response.choices[0].message?.content;
     if (!content) {
       return NextResponse.json({ error: "No content generated." }, { status: 500 });

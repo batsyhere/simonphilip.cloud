@@ -52,114 +52,49 @@ export default function ResumeGeneratorPage() {
       setError("Please paste a job description.")
       return
     }
-
+  
     setLoading(true)
     setGeneratedResume(null)
     setGeneratedCoverLetter(null)
     setApiResponse(null)
     setError(null)
-
+  
     try {
-      const response = await fetch("/api/tailor", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          jobDescription,
-          profileData: {
-            name: "Simon Philip",
-            title: "Cloud Operations Engineer",
-            phone: "+91-7528893077",
-            email: "simonphilip137@gmail.com",
-            summary:
-              "AWS Certified Cloud Operations Engineer with four years of experience. Designed cost-effective, scalable cloud solutions, achieving 99.99% uptime and reducing costs by 20%. Automated deployments, cutting release time by 50%. Skilled in cross-functional collaboration and scripting for operational efficiency.",
-            certifications: ["AWS Certified Solutions Architect – Associate", "Full Stack Development (upGrad)"],
-            skills: [
-              "AWS",
-              "Terraform",
-              "CI/CD",
-              "React",
-              "TypeScript",
-              "S3",
-              "CloudFront",
-              "GitHub Actions",
-              "Docker",
-              "Linux",
-            ],
-            experience: [
-              {
-                role: "Cloud Operations Engineer",
-                company: "Safe Security",
-                duration: "2022 - 2024",
-                responsibilities: [
-                  "Led cloud operations, automation, and security initiatives in AWS environments to ensure high availability and efficient deployments.",
-                  "Implemented Disaster Recovery Automation using Jenkins to restore customer data within the past 35 days.",
-                  "Automated 80% of manual deployment tasks, enabling over 100 stack upgrades per sprint.",
-                  "Reduced operational time by 95% through Slack-integrated scripts.",
-                  "Migrated code repositories from Bitbucket to GitHub for improved collaboration.",
-                  "Led security patching and vulnerability analysis using CrowdStrike and Wiz.",
-                  "Supported SecOps in applying AWS security best practices across the organization.",
-                  "Maintained 99.99% uptime while driving 20% cost savings through optimization.",
-                  "Collaborated with product teams and managed code cherry-picks for releases",
-                ],
-              },
-              {
-                role: "Customer Support Engineer",
-                company: "Safe Security",
-                duration: "2021 - 2022",
-                responsibilities: [
-                  "Delivered full-stack feature enhancements and customer support for SAFE, a serverless React application hosted on AWS.",
-                  "Integrated new features and design changes in the React-based flagship product.",
-                  "Resolved customer issues efficiently, ensuring smooth user experience.",
-                  "Maintained daily follow-ups for bug tracking and resolution.",
-                  "Owned feature delivery for a serverless web application on AWS infrastructure.",
-                ],
-              }
-            ],
-            projects: [
-              {
-                name: "simonphilip.cloud",
-                description:
-                  "Futuristic cloud portfolio site using React, Tailwind, AWS S3, CloudFront, Route53, and Terraform.",
-              },
-              {
-                name: "AI Resume Generator",
-                description:
-                  "AI Resume Generator/enhancer according to a given JD using React, Tailwind, openAI, hosted on AWS S3",
-              },
-            ],
-            education: [
-              {
-                degree: "Bachelor of Technology in Computer Science",
-                institution: "Lovely Professional University",
-                year: "2016 - 2020",
-              },
-            ],
+      const response = await fetch(
+        "https://vuzzkjy7gnsfch4udccmxel5pi0aepbv.lambda-url.ap-south-1.on.aws/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
           },
-        }),
-      })
-
+          body: JSON.stringify({ jobDescription }),
+        }
+      );
+  
       if (!response.ok) {
         throw new Error(`API error: ${response.status}`)
       }
-
+  
       const data = await response.json()
       setApiResponse(data)
-
-      // Transform the API response to match our component structure
-      const transformedResume = transformResumeData(data)
-      setGeneratedResume(transformedResume)
-
-      // Set cover letter
+  
+      try {
+        const transformedResume = transformResumeData(data)
+        setGeneratedResume(transformedResume)
+      } catch (e) {
+        console.error("🔥 Transform error:", e, "Data:", data)
+        setError("Something went wrong processing the resume.")
+      }
+  
       setGeneratedCoverLetter(data.coverLetter || null)
     } catch (error) {
-      console.error("Error generating tailored content:", error)
+      console.error("Error generating a response from the API:", error)
       setError("Failed to generate resume. Please try again later.")
     } finally {
       setLoading(false)
     }
   }
+  
 
   const handleEdit = () => setIsEditing(true)
 
