@@ -255,10 +255,10 @@ export default function Home() {
             />
 
             <ProjectCard
-              title="Kubernetes Certification"
+              title="Solutions Architect Certification"
               category="Certification"
-              image="/placeholder.svg?height=400&width=600"
-              description="Currently pursuing Kubernetes certification to deepen container orchestration and DevOps capabilities. Coming soon!"
+              image="/aws-saa.png?height=400&width=600"
+              description="Awarded with AWS Solutions Architect Associate."
               link="#"
             />
           </div>

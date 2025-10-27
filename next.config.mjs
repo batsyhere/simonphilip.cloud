@@ -8,7 +8,8 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  output: 'export',
+  // Removed 'output: export' to support API routes for media gallery
+  // AWS Amplify supports SSR mode with automatic Lambda deployment
   reactStrictMode: true,
   images: {
     unoptimized: true,

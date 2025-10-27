@@ -1,15 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-secrets-manager";
-import { fromEnv } from "@aws-sdk/credential-provider-env";
 
 
 async function getOpenAIKey(): Promise<string> {
   try {
     // Initialize client with proper types
+    // In Amplify: Uses IAM role credentials automatically
+    // In local dev: Uses credentials from environment variables
     const secretsClient = new SecretsManagerClient({
-      region: "ap-south-1", // Fallback region
-      credentials: fromEnv() // Automatically reads AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY
+      region: process.env.AWS_REGION || "ap-south-1"
     });
 
     const response = await secretsClient.send(

@@ -64,6 +64,22 @@ export default function Navigation() {
                     </button>
                   </li>
                 ))}
+                <li>
+                  <a
+                    href="/gallery"
+                    className="text-sm font-medium text-zinc-600 transition-colors hover:text-zinc-900"
+                  >
+                    Gallery
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/admin"
+                    className="text-sm font-medium text-zinc-600 transition-colors hover:text-zinc-900"
+                  >
+                    Admin
+                  </a>
+                </li>
               </ul>
             </nav>
 
@@ -119,6 +135,24 @@ export default function Navigation() {
                       </button>
                     </li>
                   ))}
+                  <li>
+                    <a
+                      href="/gallery"
+                      className="text-lg font-medium text-zinc-900"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      Gallery
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/admin"
+                      className="text-lg font-medium text-zinc-900"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      Admin
+                    </a>
+                  </li>
                 </ul>
               </nav>
 
