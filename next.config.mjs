@@ -14,6 +14,13 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  // Expose environment variables to API routes (Lambda functions) in Amplify
+  env: {
+    AWS_REGION: process.env.AWS_REGION,
+    MEDIA_BUCKET_NAME: process.env.MEDIA_BUCKET_NAME,
+    REKOGNITION_COLLECTION_ID: process.env.REKOGNITION_COLLECTION_ID,
+    AWS_SECRET_NAME: process.env.AWS_SECRET_NAME,
+  },
   experimental: {
     webpackBuildWorker: true,
     parallelServerBuildTraces: true,
